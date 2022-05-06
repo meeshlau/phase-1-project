@@ -1,7 +1,8 @@
 # Project Name - Equipment Management
 This will be the overview for my project. Detail what the project is about and the purpose of it.
 
-Y. Hata Equipment Management will be used for employees to request new equipment based on what inventory is available. They will be able to view all unavailable and available inventory, submit a request form for new equipment, and view specs of each product.
+This web app is a cocktail recipe search. The app allows you to search from a database of cocktail recipes. Once searched, you'll be able to see all of the cocktail recipes, the ingredients, and the instructions to make the cocktail.
+This app also includes features to favorite a cocktail, so you can save for later.
 
 # Requirements
 Have json-server installed
