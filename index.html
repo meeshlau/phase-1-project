@@ -5,26 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+    <link rel="stylesheet" href="index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
             
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Cocktail Recipes</title>
 </head>
 <body>
-    <nav class ="red darken-3">
+    <nav class ="green lighten-2">
         <div class="nav-wrapper container">
-          <a href="#" class="brand-logo">Y. Hata</a>
+          <a href="#" class="brand-logo">Cocktails</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li id="home-link"><a href="#">Home</a></li>
-            <li id="inv-link"><a href="#">Inventory</a></li>
-            <li id="request-link"><a href="#">Request Form</a></li>
-            <li id="specs-link"><a href="#">Specs </a></li>
+            <li id="search-link"><a href="">Search</a></li>
+            <li id="faves-link"><a href="">Favorites </a></li>
           </ul>
         </div>
       </nav>
-    <div id="main"></div>
+    <div class = "container" id="main"></div>
 
-    <script src="index.js"></script>
+  <div class="search container">
+    <form id="form" class="col s9">
+      <div class="row">
+        <div class="input-field col s12">
+          <input type= "search" id="textarea1" class="materialize-textarea">
+          <label for="textarea1">Search by cocktail name</label>
+          <input type="submit" name= "submit" value = "Search" class="submit">
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <div id="cocktail-collection" class="container"></div>
+  <script src="index.js"></script>
 </body>
 </html>
