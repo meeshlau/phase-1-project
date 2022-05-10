@@ -7,7 +7,7 @@ Three Question Rule for Events:
 */
 
 /* Global Variables */
-const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?"
+const baseUrl = "https://api.tvmaze.com/search/shows?q="
 const favorites = []
 
 /* Node Getters:  */
@@ -16,7 +16,7 @@ const searchLink =  document.getElementById("search-link")
 const favesLink =  document.getElementById("faves-link")
 const form = document.getElementById("form")
 const textArea = document.getElementById("textarea1")
-const cocktailCollection = document.getElementById("cocktail-collection")
+const searchCollection = document.getElementById("search-collection")
 const favoritesCollection = document.getElementById("favorites-collection")
 
 /* Event Listeners*/
@@ -33,17 +33,16 @@ const loadSearch = () => {
     resetMainDiv()
     const h1 = document.createElement('h1')
     h1.className = "center-align"
-    h1.innerText = "Search for Cocktail Recipes"
+    h1.innerText = "Search for a TV Show"
     mainDiv.append(h1)
 }
-let favorites
 
 const loadFavesLink = (e) => {
     e.preventDefault()
     resetMainDiv()
     resetFormDiv()
-    resetCocktailCollectionResults()
-    
+    resetSearchCollectionResults()
+
     const h1 = document.createElement("h1")
     h1.innerText = "Favorites"
     favoritesCollection.append(h1)
@@ -55,7 +54,7 @@ const loadFavesLink = (e) => {
 function addToFavorites(e) {
     e.preventDefault()
     const li = document.createElement("li")
-    li.textContent = this.strDrink
+    li.textContent = this.show.name
 
     favorites.push(li)
     for (const name of favorites) {
@@ -63,30 +62,27 @@ function addToFavorites(e) {
     }
 }
 
+function mouseOverFavorites() {
+    document.getElementById("add-link").style.color = "grey"
+}
+
 /* REQUESTS */
 const handleSearchResults = () => {    
     form.addEventListener("submit", (e) => {
         e.preventDefault()
         e.target[0].value
-        fetch(baseUrl + `s=${e.target[0].value}`)
+        fetch(baseUrl + `${e.target[0].value}`)
         .then(response => response.json())
         .then(response => {
-            cocktailCollection.innerHTML = ""
-            response.drinks.map(drink => {
-                for (let i = 1; i < 16; i++ ) {
-                    const ingredientsObj = {
-                        [`drink[strMeasure${i}]`]: `drink[strIngredient${i}]`
-                    }
-                    cocktailCollection.append(JSON.stringify(ingredientsObj))
-
-                }
-                renderCard(drink)
-                // console.log(drink)
-                
+            searchCollection.innerHTML = ""
+            response.map(show => {
+                renderCard(show)
+                console.log(show)
             })
         })
-    form.reset()
+        form.reset()
     })
+    
 }
 
 
@@ -99,54 +95,50 @@ const resetFormDiv = () => {
     form.innerHTML = ""
 }
 
-const resetCocktailCollectionResults = () => {
-    cocktailCollection.innerHTML = ""
+const resetSearchCollectionResults = () => {
+    searchCollection.innerHTML = ""
 }
 
 const resetFavoritesCollection = () => {
     favoritesCollection.innerHTML = ""
 }
 
-const renderCard = (drinks) => {
+const renderCard = (show) => {
+    const rowDiv = document.createElement("div")
+    const colDiv = document.createElement("div")
     const cardDiv = document.createElement("div")
     const imageDiv = document.createElement("div")
     const cardContent = document.createElement("div")
-    const cardReveal = document.createElement("div")
-    const span = document.createElement("span")
     const cardTitleSpan = document.createElement("span")
     const p = document.createElement("p")
-    const cardTitleP = document.createElement("p")
+    const cardActionDiv = document.createElement("div")
+    const a = document.createElement("a")
     const img = document.createElement("img")
-    const like = document.createElement("button")
-    // const ingredients = document.createElement("p")
-    
-    cardDiv.className = "card container"
-    cardReveal.className = "card-reveal"
-    imageDiv.className = "card-image waves-effect waves-block waves-light"
-    img.className = "activator"
-    span.className = "card-title activator grey-text text-darken-4 center-align"
-    cardTitleSpan.className = "card-title grey-text text-darken-4 center-align"
+
+    rowDiv.className = "row"
+    colDiv.className = "col s12 m6"
+    cardDiv.className = "card"
+    imageDiv.className = "card-image"
+    cardTitleSpan.className = "card-title black-text"
+    cardActionDiv.className = "card-action"
     cardContent.className = "card-content"
-    // ingredients.setAttribute("id", "ingredients")
-    like.className = "fixed-action-btn btn-floating btn-large waves-effect waves-light red"
-    like.setAttribute("id", "fave-btn")
-
-    like.addEventListener("click", addToFavorites.bind(drinks))
+    a.setAttribute("id", "add-link")
     
-    // ingredients.textContent = ""
-    cardTitleSpan.textContent = drinks.strDrink
-    like.textContent = "♥"
-    img.src = drinks.strDrinkThumb
-    span.textContent = drinks.strDrink
-    cardTitleP.textContent = drinks.strInstructions
+    img.src = show.show.image.original
+    a.addEventListener("click", addToFavorites.bind(show))
+    // a.href = show.show.officialSite
+    a.textContent = "♥ Add to favorites"
+    cardTitleSpan.textContent = show.show.name
+    p.innerHTML = show.show.summary
     
-    cardReveal.append(cardTitleSpan, cardTitleP)
-    p.append(like)
-    cardContent.append(span, p)
+    cardActionDiv.append(a)
     imageDiv.append(img)
-    cardDiv.append(cardContent, imageDiv, like, cardReveal)
+    cardContent.append(cardTitleSpan, p)
+    cardDiv.append(imageDiv, cardContent, cardActionDiv)
+    colDiv.append(cardDiv)
+    rowDiv.append(colDiv)
 
-    cocktailCollection.append(cardDiv)
+    searchCollection.append(rowDiv)
 }
 
 /* Startup: What we want to do on load */
@@ -156,4 +148,3 @@ document.addEventListener("DOMContentLoaded", () => {
     handleFavesLinkClick()
     handleSearchResults()
 })
-
