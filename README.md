@@ -1,21 +1,12 @@
-# Project Name - Equipment Management
-This will be the overview for my project. Detail what the project is about and the purpose of it.
+# FindTV Overview
 
-This web app is a cocktail recipe search. The app allows you to search from a database of cocktail recipes. Once searched, you'll be able to see all of the cocktail recipes, the ingredients, and the instructions to make the cocktail.
-This app also includes features to favorite a cocktail, so you can save for later.
+FindTV is a search app for finding TV Show information. 
 
-# Requirements
-Have json-server installed
+## Features
 
-## Installation Instructions
-Fork and clone
-Run json server for db.json
-Open index.html in the browser
+- Search through hundreds of TV shows with the TVMaze api and read about the show's summary
+- Favorite a show you find interesting
 
-## Contributing
-
-
-# Licensing
-
-
-
+## Technologies Used
+- Materialize CSS
+- TVMaze api
