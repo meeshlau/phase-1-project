@@ -31,10 +31,10 @@ const handleFavesLinkClick = () => {
 /* Event Handlers: what happens when something triggers */
 const loadSearch = () => {
     resetMainDiv()
-    const h1 = document.createElement('h1')
-    h1.className = "center-align"
-    h1.innerText = "Search for a TV Show"
-    mainDiv.append(h1)
+    const h3 = document.createElement('h3')
+    h3.className = "center-align"
+    h3.innerText = "Search for a TV Show"
+    mainDiv.append(h3)
 }
 
 const loadFavesLink = (e) => {
@@ -51,7 +51,6 @@ const loadFavesLink = (e) => {
     }
 }
 
-
 function addToFavorites(e) {
     e.preventDefault()
     const li = document.createElement("li")
@@ -61,11 +60,14 @@ function addToFavorites(e) {
     for (const name of favorites) {
         favoritesCollection.append(name)
     }
-    
 }
 
-function mouseOverFavorites() {
-    document.getElementById("add-link").style.color = "grey"
+function mouseOverFunction() {
+    this.style.color = "orange"
+}
+
+function mouseOutFunction() {
+    this.style.color = "black"
 }
 
 /* REQUESTS */
@@ -79,13 +81,14 @@ const handleSearchResults = () => {
             searchCollection.innerHTML = ""
             response.map(show => {
                 renderCard(show)
-                console.log(show)
+                // console.log(show)
             })
         })
         form.reset()
     })
-    
 }
+
+
 
 
 /* Misc */
@@ -118,20 +121,21 @@ const renderCard = (show) => {
     const img = document.createElement("img")
 
     rowDiv.className = "row"
-    colDiv.className = "col s12 m6"
+    colDiv.className = "col s6"
     cardDiv.className = "card"
     imageDiv.className = "card-image"
     cardTitleSpan.className = "card-title black-text"
     cardActionDiv.className = "card-action"
     cardContent.className = "card-content"
     a.setAttribute("id", "add-link")
-    
+
     img.src = show.show.image.original
     a.addEventListener("click", addToFavorites.bind(show))
-    // a.href = show.show.officialSite
     a.textContent = "♥ Add to favorites"
     cardTitleSpan.textContent = show.show.name
     p.innerHTML = show.show.summary
+    p.addEventListener("mouseover", mouseOverFunction)
+    p.addEventListener("mouseout", mouseOutFunction)
     
     cardActionDiv.append(a)
     imageDiv.append(img)
@@ -143,10 +147,19 @@ const renderCard = (show) => {
     searchCollection.append(rowDiv)
 }
 
+function mouseOverFunction() {
+    this.style.color = "orange"
+}
+
+function mouseOutFunction() {
+    this.style.color = "black"
+}
+
+
 /* Startup: What we want to do on load */
 document.addEventListener("DOMContentLoaded", () => {
     loadSearch()
     handleSearchLinkClick()
-    handleFavesLinkClick()
     handleSearchResults()
+    handleFavesLinkClick()
 })
