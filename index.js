@@ -62,11 +62,11 @@ function addToFavorites(e) {
     }
 }
 
-function mouseOverFunction() {
+const mouseOverFunction = () => {
     this.style.color = "orange"
 }
 
-function mouseOutFunction() {
+const mouseOutFunction = () => {
     this.style.color = "black"
 }
 
@@ -87,9 +87,6 @@ const handleSearchResults = () => {
         form.reset()
     })
 }
-
-
-
 
 /* Misc */
 const resetMainDiv = () => {
@@ -146,15 +143,6 @@ const renderCard = (show) => {
 
     searchCollection.append(rowDiv)
 }
-
-function mouseOverFunction() {
-    this.style.color = "orange"
-}
-
-function mouseOutFunction() {
-    this.style.color = "black"
-}
-
 
 /* Startup: What we want to do on load */
 document.addEventListener("DOMContentLoaded", () => {
