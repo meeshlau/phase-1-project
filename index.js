@@ -4,17 +4,13 @@ const favorites = []
 
 /* Node Getters*/
 const mainDiv = document.getElementById("main") 
+const titleDiv = document.getElementById("title")
 const searchLink =  document.getElementById("search-link")
+const searchContainer = document.getElementById("search-container")
 const favesLink =  document.getElementById("faves-link")
 const form = document.getElementById("form")
-const textArea = document.getElementById("textarea1")
 const searchCollection = document.getElementById("search-collection")
 const favoritesCollection = document.getElementById("favorites-collection")
-
-const h3 = document.createElement('h3')
-    h3.className = "center-align"
-    h3.innerText = "Search for a TV Show"
-    mainDiv.append(h3)
 
 /* Event Listeners*/
 const handleSearchLinkClick = () => {
@@ -29,24 +25,34 @@ document.addEventListener("DOMContentLoaded", () => {
     handleSearchLinkClick()
     handleSearchResults()
     handleFavesLinkClick()
+    const h3 = document.createElement('h3')
+    h3.className = "center-align"
+    h3.innerText = "Search for a TV Show"
+    titleDiv.append(h3)
 })
 
 /* Event Handlers*/
-const loadSearch = () => {
-    resetSearchCollectionResults()
+const loadSearch = (e) => {
+    e.preventDefault()
+    titleDiv.style.display = "block"
+    form.style.display = "block"
 }
 
 const loadFavesLink = (e) => {
     e.preventDefault()
-    resetFormDiv()
     resetSearchCollectionResults()
-
+    form.style.display = "none"
+    titleDiv.style.display = "none"
+    
     const h1 = document.createElement("h1")
-    h1.innerText = "Favorites"
+    h1.textContent = "Favorites"
     favoritesCollection.append(h1)
+    
+    
     for (const name of favorites) {
         favoritesCollection.append(name)
     }
+    
 }
 
 function addToFavorites(e) {
@@ -56,7 +62,6 @@ function addToFavorites(e) {
 
     favorites.push(li)
     for (const name of favorites) {
-    
         favoritesCollection.append(name)
     }
 }
@@ -66,7 +71,6 @@ function mouseOverFunction() {
 }
 
 function mouseOutFunction(){
-    // console.log(this)
     this.style.color = "black"
 }
 
@@ -81,7 +85,6 @@ const handleSearchResults = () => {
             searchCollection.innerHTML = ""
             response.map(show => {
                 renderCard(show)
-                // console.log(show)
             })
         })
         form.reset()
@@ -89,20 +92,9 @@ const handleSearchResults = () => {
 }
 
 /* Misc */
-// const resetMainDiv = () => {
-//     mainDiv.innerHTML = ""
-// }
-
-const resetFormDiv = () => {
-    form.innerHTML = ""
-}
 
 const resetSearchCollectionResults = () => {
     searchCollection.innerHTML = ""
-}
-
-const resetFavoritesCollection = () => {
-    favoritesCollection.innerHTML = ""
 }
 
 const renderCard = (show) => {
@@ -143,4 +135,3 @@ const renderCard = (show) => {
 
     searchCollection.append(rowDiv)
 }
-
