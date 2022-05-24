@@ -113,7 +113,7 @@ const renderCard = (show) => {
 
     img.src = show.show.image.original
     a.addEventListener("click", addToFavorites.bind(show))
-    a.textContent = "♥ Add to favorites"
+    a.textContent = "♥ ADD TO SAVED SHOWS"
     cardTitleSpan.textContent = show.show.name
     p.innerHTML = show.show.summary
     p.addEventListener("mouseover", mouseOverFunction)
