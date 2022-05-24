@@ -1,16 +1,8 @@
-/* 
-Three Question Rule for Events:
-    Overview: What is the feature?
-    1. When?
-    2. Cause - What is the cause of the event that happens?
-    3. Effect - What happens after the event triggers?
-*/
-
 /* Global Variables */
 const baseUrl = "https://api.tvmaze.com/search/shows?q="
 const favorites = []
 
-/* Node Getters:  */
+/* Node Getters*/
 const mainDiv = document.getElementById("main") 
 const searchLink =  document.getElementById("search-link")
 const favesLink =  document.getElementById("faves-link")
@@ -18,6 +10,11 @@ const form = document.getElementById("form")
 const textArea = document.getElementById("textarea1")
 const searchCollection = document.getElementById("search-collection")
 const favoritesCollection = document.getElementById("favorites-collection")
+
+const h3 = document.createElement('h3')
+    h3.className = "center-align"
+    h3.innerText = "Search for a TV Show"
+    mainDiv.append(h3)
 
 /* Event Listeners*/
 const handleSearchLinkClick = () => {
@@ -28,18 +25,19 @@ const handleFavesLinkClick = () => {
     favesLink.addEventListener("click", loadFavesLink)
 }
 
-/* Event Handlers: what happens when something triggers */
+document.addEventListener("DOMContentLoaded", () => {
+    handleSearchLinkClick()
+    handleSearchResults()
+    handleFavesLinkClick()
+})
+
+/* Event Handlers*/
 const loadSearch = () => {
-    resetMainDiv()
-    const h3 = document.createElement('h3')
-    h3.className = "center-align"
-    h3.innerText = "Search for a TV Show"
-    mainDiv.append(h3)
+    resetSearchCollectionResults()
 }
 
 const loadFavesLink = (e) => {
     e.preventDefault()
-    resetMainDiv()
     resetFormDiv()
     resetSearchCollectionResults()
 
@@ -58,15 +56,17 @@ function addToFavorites(e) {
 
     favorites.push(li)
     for (const name of favorites) {
+    
         favoritesCollection.append(name)
     }
 }
 
-const mouseOverFunction = () => {
+function mouseOverFunction() {
     this.style.color = "orange"
 }
 
-const mouseOutFunction = () => {
+function mouseOutFunction(){
+    // console.log(this)
     this.style.color = "black"
 }
 
@@ -89,9 +89,9 @@ const handleSearchResults = () => {
 }
 
 /* Misc */
-const resetMainDiv = () => {
-    mainDiv.innerHTML = ""
-}
+// const resetMainDiv = () => {
+//     mainDiv.innerHTML = ""
+// }
 
 const resetFormDiv = () => {
     form.innerHTML = ""
@@ -144,10 +144,3 @@ const renderCard = (show) => {
     searchCollection.append(rowDiv)
 }
 
-/* Startup: What we want to do on load */
-document.addEventListener("DOMContentLoaded", () => {
-    loadSearch()
-    handleSearchLinkClick()
-    handleSearchResults()
-    handleFavesLinkClick()
-})
