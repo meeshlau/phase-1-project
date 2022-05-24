@@ -7,24 +7,24 @@ const mainDiv = document.getElementById("main")
 const titleDiv = document.getElementById("title")
 const searchLink =  document.getElementById("search-link")
 const searchContainer = document.getElementById("search-container")
-const favesLink =  document.getElementById("faves-link")
+const saveLink =  document.getElementById("save-link")
 const form = document.getElementById("form")
 const searchCollection = document.getElementById("search-collection")
-const favoritesCollection = document.getElementById("favorites-collection")
+const savedCollection = document.getElementById("saved-collection")
 
 /* Event Listeners*/
 const handleSearchLinkClick = () => {
     searchLink.addEventListener("click", loadSearch)
 }
 
-const handleFavesLinkClick = () => {
-    favesLink.addEventListener("click", loadFavesLink)
+const handleSaveLinkClick = () => {
+    saveLink.addEventListener("click", loadSaveLink)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     handleSearchLinkClick()
     handleSearchResults()
-    handleFavesLinkClick()
+    handleSaveLinkClick()
     const h3 = document.createElement('h3')
     h3.className = "center-align"
     h3.innerText = "Search for a TV Show"
@@ -38,21 +38,14 @@ const loadSearch = (e) => {
     form.style.display = "block"
 }
 
-const loadFavesLink = (e) => {
+const loadSaveLink = (e) => {
     e.preventDefault()
     resetSearchCollectionResults()
     form.style.display = "none"
     titleDiv.style.display = "none"
-    
-    const h1 = document.createElement("h1")
-    h1.textContent = "Favorites"
-    favoritesCollection.append(h1)
-    
-    
     for (const name of favorites) {
-        favoritesCollection.append(name)
+        savedCollection.append(name)
     }
-    
 }
 
 function addToFavorites(e) {
@@ -62,7 +55,7 @@ function addToFavorites(e) {
 
     favorites.push(li)
     for (const name of favorites) {
-        favoritesCollection.append(name)
+        savedCollection.append(name)
     }
 }
 
